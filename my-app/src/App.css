@@ -1,0 +1,90 @@
+.App {
+  text-align: center;
+}
+html{
+  box-sizing: border-box;
+  font-family: monospace;
+
+}
+body{
+  background-color: #0E1116;
+  
+}
+
+header{
+  border: solid rgb(0, 0, 0);
+  width: 100%;
+  color:#af4eff;
+  padding-left: 1em;
+  margin-bottom: 2px;
+  border-bottom: solid white 1px;
+  background-color: #000000;
+}
+
+#introScreen{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh
+}
+
+#StartBtn{
+  cursor: pointer;
+  background-color: #af4eff;
+  color: #ffffff;
+  padding: 1.2rem 4rem;
+  border: none;
+  border-radius: 70px;
+  display: block;
+  margin: auto;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+#Trivia{
+  /*border: #af4eff solid;*/
+  text-align: center;
+  padding: 2rem 2rem;
+  padding-top: 0.8rem;
+  color: #ffffff;
+}
+
+#Question{
+  padding: 0.3em;
+  border-bottom: dotted white 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+p{
+  font-size: large;
+  font-weight: 500;
+}
+
+#buttons{
+ display: flex;
+ flex-direction: row;
+ margin-bottom: 0.5rem;
+}
+
+.btn{
+  margin-bottom: 0.5rem;
+  margin: 0px 1rem;
+  background-color: #8432c7;
+  border:none;
+  border-radius: 30px;
+  padding: 0.2rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn:hover{
+  background-color: #63209b;
+}
+
+#StartBtn:hover{
+  background-color: #8432c7;
+}
+
