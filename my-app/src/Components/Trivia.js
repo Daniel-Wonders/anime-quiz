@@ -1,44 +1,69 @@
 import React from "react";
 import Question from "./Question";
 
-export default function Trivia(){
-    const [questions,setQuestions]=React.useState([])
+export default function Trivia(props){
+    const [questions, setQuestions] = React.useState([]);
+    const [fetchError, setFetchError] = React.useState(null);
 
     React.useEffect(() => {
-        console.log("Fetching questions...");
         const fetchQuestions = async () => {
-        try {
-            const response = await fetch("https://opentdb.com/api.php?amount=5&category=31&type=multiple");
-            const data = await response.json();
-            handleData(data)
-            
-        } catch (error) {
-            console.error("Error fetching data: ", error);
-        }
+            try {
+                const response = await fetch("https://opentdb.com/api.php?amount=5&category=31&type=multiple");
+                if (!response.ok) {
+                    props.crashed()
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                setQuestions(data.results || []);
+            } catch (error) {
+                props.crashed()
+                console.error("Error fetching data: ", error);
+                setFetchError(error.message);
+                // Implement retry logic here if needed
+            }
         };
-
+    
         fetchQuestions();
     }, []);
+    
 
     const handleData = (data) => {
-        setQuestions(data.results)
-        console.log("hey" )
-        console.log(data)
+        
+        console.log("Fetched data: ", data);
+        console.log(data.results)
     };
 
-    return(<div id="Trivia">
+    let counterColor=props.counter===0?"redCounter":"greenCounter"
+    counterColor= props.counter===5 ? "goldenCounter":counterColor
 
-        {questions.map((question, index) => (
-          <Question
-            key={index}
-            ask={question.question}
-            right={question.correct_answer}
-            wrongs={question.incorrect_answers}
-          />
-        ))}
+    
+    
 
-        
-    </div>
-
-    )
+    return (
+        <div id="Trivia" className={props.dimmed?"dimmed":""}>
+            <p id="correctCounter">
+                YOU'VE ANSWERED CORRECTLY &nbsp;
+                <span id={counterColor}>{props.counter}</span>
+                /5 QUESTIONS
+            </p>
+            {fetchError ? (
+                <div className="error">Error fetching data: {fetchError}</div>
+            ) : (
+                questions.length > 0 ? (
+                    questions.map((question, index) => (
+                        <Question
+                            key={index}
+                            ask={question.question}
+                            right={question.correct_answer}
+                            wrongs={question.incorrect_answers}
+                            incrementCounter={props.incrementCounter}
+                            incrementTotalCounter={props.incrementTotalCounter}
+                        />
+                    ))
+                ) : (
+                    <img src={process.env.PUBLIC_URL+`/loading.svg`} />
+                )
+            )}
+        </div>
+    );
 }
