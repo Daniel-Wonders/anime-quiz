@@ -9,15 +9,14 @@ function Question(props) {
 
     React.useEffect(() => {
         //setRandomIndex(Math.floor(Math.random() * 4))
-        console.log(props.wrongs)
-        const decodedWrongAnswers=props.wrongs.map((answer)=>{return (he.decode(answer))})
+        const decodedWrongAnswers=props.wrongs.map((answer)=>{return (he.decode(answer))})//Had to decode each str
         const decodedRightAnswer = he.decode(props.right);
 
-        const rightAnswer = typeof decodedRightAnswer === 'string' ? decodedRightAnswer : console.log("soyl el erroneao");
+        //const rightAnswer = typeof decodedRightAnswer === 'string' ? decodedRightAnswer : console.log("soy el erroneao");
 
         // Create a new array by concatenating the decoded right answer into wrong answers
         const answers = [...decodedWrongAnswers];
-        answers.splice(randomIndex, 0, rightAnswer);
+        answers.splice(randomIndex, 0, decodedRightAnswer);
 
 
         setAnswersArr(answers);
@@ -25,7 +24,6 @@ function Question(props) {
 
     function handleRightAnswer() {
         setIsAnswered(true);
-        console.log("right");
         props.incrementCounter();
         props.incrementTotalCounter()
         
@@ -33,7 +31,6 @@ function Question(props) {
 
     function handleWrongAnswer() {
         setIsAnswered(true);
-        console.log("wrong");
         props.incrementTotalCounter()
 
     }

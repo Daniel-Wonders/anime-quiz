@@ -17,9 +17,7 @@ export default function Trivia(props){
                 setQuestions(data.results || []);
             } catch (error) {
                 props.crashed()
-                console.error("Error fetching data: ", error);
                 setFetchError(error.message);
-                // Implement retry logic here if needed
             }
         };
     
@@ -27,17 +25,9 @@ export default function Trivia(props){
     }, []);
     
 
-    const handleData = (data) => {
-        
-        console.log("Fetched data: ", data);
-        console.log(data.results)
-    };
-
     let counterColor=props.counter===0?"redCounter":"greenCounter"
     counterColor= props.counter===5 ? "goldenCounter":counterColor
-
-    
-    
+  
 
     return (
         <div id="Trivia" className={props.dimmed?"dimmed":""}>
